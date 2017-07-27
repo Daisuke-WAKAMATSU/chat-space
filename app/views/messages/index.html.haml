@@ -5,7 +5,7 @@
       .sidebar__top__user-name Daisuke
       = link_to "", class: "sidebar__top__new-group" do
         %i{class: "fa fa-pencil-square-o fa-2x" }
-      = link_to "/users/edit", class: "sidebar__top__edit-account" do
+      = link_to edit_user_registration_path, class: "sidebar__top__edit-account" do
         %i{class: "fa fa-cog fa-2x" }
     .sidebar__group
       .sidebar__group-name 職場
