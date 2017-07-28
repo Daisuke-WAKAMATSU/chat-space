@@ -9,13 +9,6 @@ html, body {
   font: bold;
 }
 
-.notice {
-  @include width-view;
-  text-align: center;
-  background-color: #38AEF0;
-  color: white;
-}
-
 .sidebar {
   background-color: #2f3e51;
   height: 100vh;
