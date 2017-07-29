@@ -2,7 +2,7 @@
   .sidebar
     .sidebar__top
       .sidebar__top__user-name Daisuke
-      = link_to "", class: "sidebar__top__new-group" do
+      = link_to new_group_path, class: "sidebar__top__new-group" do
         %i{class: "fa fa-pencil-square-o fa-2x" }
       = link_to edit_user_registration_path, class: "sidebar__top__edit-account" do
         %i{class: "fa fa-cog fa-2x" }
