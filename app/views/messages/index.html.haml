@@ -7,12 +7,9 @@
       = link_to edit_user_registration_path, class: "sidebar__top__edit-account" do
         %i{class: "fa fa-cog fa-2x" }
     .sidebar__group
-      .sidebar__group-name 職場
-      .sidebar__group__last-message test test 
-      .sidebar__group-name 職場
-      .sidebar__group__last-message test test 
-      .sidebar__group-name 職場
-      .sidebar__group__last-message  test test 
+      - @groups.each do |group|
+        .sidebar__group-name  #{group.name}
+        .sidebar__group__last-message test test 
   .main
     .main__select
       .main__select__group-name 職場
