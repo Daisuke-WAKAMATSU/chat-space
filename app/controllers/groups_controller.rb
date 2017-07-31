@@ -1,4 +1,9 @@
 class GroupsController < ApplicationController
+
+  def index
+    @groups = current_user.groups
+  end
+
   def new
     @group = Group.new
   end
@@ -10,8 +15,11 @@ class GroupsController < ApplicationController
     else
       flash.now[:alert] = "グループ作成が失敗しました。"
       render :new
-
     end
+  end
+
+  def edit
+    @group = Group.find(params[:id])
   end
 
   def update
@@ -21,4 +29,5 @@ class GroupsController < ApplicationController
   def group_paramas
     params.require(:group).permit(:name, user_ids: [])
   end
+
 end
