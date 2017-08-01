@@ -35,13 +35,17 @@ html, body {
   }
   &__group {
     height: 91px;
-    &-name {
-      font-size: 15px;
-      padding: 20px 0 0 20px;
-    }
-    &__last-message {
-      font-size: 11px;
-      padding: 5px 0 40px 20px;
+    &__link {
+      color: white;
+      text-decoration: none;
+      &-name {
+        font-size: 15px;
+        padding: 20px 0 0 20px;
+      }
+      &-last-message {
+        font-size: 11px;
+        padding: 5px 0 40px 20px;
+      }
     }
   }
 }

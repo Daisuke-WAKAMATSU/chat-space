@@ -1,0 +1,12 @@
+.sidebar
+  .sidebar__top
+    .sidebar__top__user-name  #{current_user.name}
+    = link_to new_group_path, class: "sidebar__top__new-group" do
+      %i{class: "fa fa-pencil-square-o fa-2x" }
+    = link_to edit_user_registration_path, class: "sidebar__top__edit-account" do
+      %i{class: "fa fa-cog fa-2x" }
+  .sidebar__group
+    - @groups.each do |group|
+      = link_to "/groups/#{group.id}/messages", class: "sidebar__group__link"  do
+        .sidebar__group__link-name  #{group.name}
+        .sidebar__group__link-last-message test test

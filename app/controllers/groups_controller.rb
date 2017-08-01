@@ -1,4 +1,5 @@
 class GroupsController < ApplicationController
+  before_action :move_to_signin
 
   def index
     @groups = current_user.groups
@@ -30,4 +31,7 @@ class GroupsController < ApplicationController
     params.require(:group).permit(:name, user_ids: [])
   end
 
+  def move_to_signin
+    redirect_to "new_user_session" unless user_signed_in?
+  end
 end
