@@ -8,7 +8,6 @@ class MessagesController < ApplicationController
 
   def create
     @message = current_user.messages.new(message_paramas)
-    binding.pry
     if @message.save
       redirect_to action: :index
     else
