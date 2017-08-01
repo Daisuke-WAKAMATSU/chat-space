@@ -1,6 +1,4 @@
 class GroupsController < ApplicationController
-  before_action :move_to_signin
-
   def index
     @groups = current_user.groups
   end
@@ -24,14 +22,13 @@ class GroupsController < ApplicationController
   end
 
   def update
+    group = Group.find(params[:id])
+    group.update(group_paramas)
+    redirect_to root_path, notice:"グループが編集されました。"
   end
 
   private
   def group_paramas
     params.require(:group).permit(:name, user_ids: [])
-  end
-
-  def move_to_signin
-    redirect_to "new_user_session" unless user_signed_in?
   end
 end

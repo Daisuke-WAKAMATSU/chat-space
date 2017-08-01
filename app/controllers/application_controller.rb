@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
-  before_action :configure_permitted_parameters, if: :devise_controller?
   protect_from_forgery with: :exception
+  before_action :move_to_signin, except: :new
+  before_action :configure_permitted_parameters, if: :devise_controller?
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
@@ -14,4 +15,9 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     root_path
   end
+
+  def move_to_signin
+    redirect_to new_user_session_path unless user_signed_in?
+  end
 end
+

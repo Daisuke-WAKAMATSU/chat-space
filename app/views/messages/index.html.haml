@@ -11,8 +11,8 @@
       .main__message__content  test test test test 
     .main__send
       = form_for @message, url: group_messages_path do |f|
-        %input{type: "text", placeholder: "type a message", class: "main__send__message"}
-        %label{class: "main__send__form"}
+        = f.text_field :body, class: "main__send__message", placeholder: "type a message"
+        %label.main__send__form
+          = f.file_field :image, class: "main__send__form-image"
           %i{class: "fa fa-image"}
-          %input{type: "file", class: "main__send__form-image"}
-        %input{type: "submit", class: "main__send-botton", value: "send"}
+        = f.submit "send", class: "main__send-botton"
