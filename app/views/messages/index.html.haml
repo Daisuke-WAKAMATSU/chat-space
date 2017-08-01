@@ -3,7 +3,7 @@
   .main
     .main__select
       .main__select__group-name #{@group.name}
-      %a.main__select__edit-botton{href:"/groups/#{@group.id}/edit"} Edit
+      = link_to "Edit", "/groups/#{@group.id}/edit", class: "main__select__edit-botton"
       .main__select__group__member-list Members: test test test test test test 
     .main__message
       .main__message__send-name Daisuke
