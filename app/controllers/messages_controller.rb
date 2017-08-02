@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   before_action :set_group, only: [:index, :create]
 
   def index
-    @message = Message.new  
+    @message = Message.new
     @groups = current_user.groups
   end
 
