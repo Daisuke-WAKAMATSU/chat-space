@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_action :set_group, only: [:edit, :update]
+
   def index
     @groups = current_user.groups
   end
@@ -18,17 +20,23 @@ class GroupsController < ApplicationController
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    group = Group.find(params[:id])
-    group.update(group_paramas)
-    redirect_to root_path, notice:"グループが編集されました。"
+    if @group.update(group_paramas)
+      redirect_to root_path, notice:"グループが編集されました。"
+    else
+      flash.now[:alert] = "グループ編集が失敗しました。"
+      render :edit
+    end
   end
 
   private
   def group_paramas
     params.require(:group).permit(:name, user_ids: [])
+  end
+
+  def set_group
+    @group = Group.find(params[:id])
   end
 end

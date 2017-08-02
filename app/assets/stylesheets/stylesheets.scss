@@ -83,12 +83,20 @@ html, body {
       line-height: 40px;
       right: 40px;
     }
-    &__group__member-list {
-      @include main-position;
+    &__group__member {
+      display: inline-block;
       font-size: 12px;
       color: #999999;
-      margin: 0 0 14px 40px;
-      top: 70px;
+      margin: 70px 0 14px 40px;
+      float: left;
+      &-list {
+        display: inline-block;
+        font-size: 12px;
+        color: #999999;
+        margin: 70px 0 14px 8px;
+        float: left;
+        font-style:oblique;
+      }
     }
   }
   &__message {
@@ -105,7 +113,7 @@ html, body {
       display: inline-block;
     }
     &__content {
-      padding-top: 10px;
+      padding: 10px 0 40px 0;
     }
   }
   &__send {

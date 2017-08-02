@@ -7,6 +7,6 @@
       %i{class: "fa fa-cog fa-2x" }
   .sidebar__group
     - @groups.each do |group|
-      = link_to "/groups/#{group.id}/messages", class: "sidebar__group__link"  do
+      = link_to group_messages_path(group), class: "sidebar__group__link"  do
         .sidebar__group__link-name  #{group.name}
-        .sidebar__group__link-last-message test test
+        .sidebar__group__link-last-message #{group.messages.try(:last).try(:body)}
