@@ -35,13 +35,17 @@ html, body {
   }
   &__group {
     height: 91px;
-    &-name {
-      font-size: 15px;
-      padding: 20px 0 0 20px;
-    }
-    &__last-message {
-      font-size: 11px;
-      padding: 5px 0 40px 20px;
+    &__link {
+      color: white;
+      text-decoration: none;
+      &-name {
+        font-size: 15px;
+        padding: 20px 0 0 20px;
+      }
+      &-last-message {
+        font-size: 11px;
+        padding: 5px 0 40px 20px;
+      }
     }
   }
 }
@@ -79,17 +83,21 @@ html, body {
       line-height: 40px;
       right: 40px;
     }
-    &__group__member-list {
-      @include main-position;
-      font-size: 12px;
-      color: #999999;
-      margin: 0 0 14px 40px;
-      top: 70px;
+    &__group__member {
+      @include potision-group;
+      margin: 70px 0 14px 40px;
+      &-list {
+        @include potision-group;
+        margin: 70px 0 14px 8px;
+        font-style:oblique;
+      }
     }
   }
   &__message {
+    overflow: auto;
     padding: 40px 0 0 40px;
     font-size: 14px;
+    height: calc(100vh - 186px);
     &__send-name {
       font-size: 16px;
       color: #434a54;
@@ -101,7 +109,7 @@ html, body {
       display: inline-block;
     }
     &__content {
-      padding-top: 10px;
+      padding: 10px 0 20px 0;
     }
   }
   &__send {
