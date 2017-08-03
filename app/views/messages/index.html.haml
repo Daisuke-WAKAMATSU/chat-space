@@ -12,6 +12,7 @@
         .main__message__send-name #{message.user.name}
         .main__message__send-time #{message.created_at.strftime("%Y-%m-%d %H:%M:%S")}
         .main__message__content #{message.body}
+        .main__message__content #{image_tag message.image}
     .main__send
       = form_for @message, url: group_messages_path do |f|
         = f.text_field :body, class: "main__send__message", placeholder: "  type a message"
