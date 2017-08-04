@@ -4,7 +4,7 @@ describe Message do
     it "メッセージがあれば保存できる" do
       message = build(:message, image: nil)
       message.valid?
-      expect(message.errors[:image]).to include
+      expect(message.errors[:body]).to include
     end
 
     it "画像あれば保存できる" do
