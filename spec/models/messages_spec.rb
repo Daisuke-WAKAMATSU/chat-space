@@ -2,19 +2,19 @@ require 'rails_helper'
 describe Message do
   describe '#create' do
     it "メッセージがあれば保存できる" do
-      message = build(:message, body: "aaa")
+      message = build(:message, image: nil)
       message.valid?
       expect(message.errors[:image]).to include
     end
 
     it "画像あれば保存できる" do
-      message = build(:message, image: "aaa")
+      message = build(:message, body: nil)
       message.valid?
       expect(message.errors[:image]).to include
     end
 
     it "メッセージと画像があれば保存できる" do
-      message = build(:message, body: "aaa", image: "aaa")
+      message = build(:message)
       message.valid?
       expect(message.errors[:body]).to include
       expect(message.errors[:image]).to include
