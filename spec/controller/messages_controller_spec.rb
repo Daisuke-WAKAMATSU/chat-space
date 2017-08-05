@@ -1,24 +1,31 @@
 require 'rails_helper'
   describe MessagesController, type: :controller do
     let(:user) { create(:user) }
+    let(:group) { create(:group) }
+    let(:member) { create(:member) }
 
   describe 'GET #index' do
-    before do
-      login_user user
-    end
+    context "ログイン中" do
 
-  # ログイン中(表示)
-    it "アクション内で定義しているインスタンス変数があるか" do
-      group = create(:group)
-      get :index
-      expect(assigns(:group)).to eq group
+      before do
+        login_user user
+      end
+
+      it "アクション内で定義しているインスタンス変数があるか" do
+        group = create(:group)
+        get :index, params: {group_id: group}
+        expect(assigns(:group)).to eq group
+      end
+
+      it "該当するビューが描画されているか" do
+        get :index, params: {group_id: group}
+        expect(response).to render_template :index
+      end
     end
   end
 end
 
-#   #   it "該当するビューが描画されているか" do
-#   #   expect(response).to render_template :new
-#   #   end
+
 
 #   #   #ログイン中で保存に成功(メッセージ作成)
 #   #     it "メッセージの保存ができたか" do
