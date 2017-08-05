@@ -1,0 +1,4 @@
+ja:
+  errors:
+    messages:
+      blank: "が入力されていません。"
