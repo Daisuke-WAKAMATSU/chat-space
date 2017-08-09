@@ -1,22 +1,17 @@
 $(function() {
   var main_message = $(".main__message");
-  function appendMessage(message) {
-    if (message.image && message.body) {
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
+  function buildHTML(message) {
+    var image = message.image? `<div class="main__message__content"><img src="${ message.image }"></div>` : "";
+    var body = message.body? `<div class="main__message__content">${ message.body }</div>` : "";
+
+    var html = `<div class="main__message__chat-contents" data-message-id="${ message.id }"}>
+                  <div class="main__message__send-name">${ message.user_name }</div>
                   <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content">${ message.body }</div>
-                  <div class="main__message__content"><img src="${ message.image }"</div>`
-    } else if (message.body){
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
-                  <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content">${ message.body }</div>`
-    } else {
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
-                  <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content"><img src="${ message.image }"</div>`
-    };
+                  ${ body }
+                  ${ image }
+                </div>`
     main_message.append(html);
-  }
+   }
 
   $("#new_message").on('submit', function(e) {
     e.preventDefault();
@@ -32,7 +27,7 @@ $(function() {
       contentType: false,
     })
     .done(function(message) {
-      appendMessage(message)
+      buildHTML(message)
       $("#message_body").val('');
       $(".main__send__form-image").val('');
       $('.main__message').animate({
@@ -46,4 +41,28 @@ $(function() {
       alert("メッセージ送信が失敗しました")
     })
   });
+
+  setInterval(function() {
+    $.ajax({
+      type: 'GET',
+      url: location.href,
+      dataType: 'json'
+    })
+
+  .done(function(messages) {
+    var id = $('.main__message__chat-contents:last').data('messageId');
+    var insertHTML = '';
+    messages.forEach(function(message) {
+      if (message.id > id ) {
+        console.log(id)
+        insertHTML += buildHTML(message);
+      }
+    });
+    $('.main__message').animate({
+          'scrollTop': $('.main__message')[0].scrollHeight}, 'fast');
+  })
+  .fail(function(data) {
+   alert('自動更新に失敗しました');
+  });
+  },5000);
 });
