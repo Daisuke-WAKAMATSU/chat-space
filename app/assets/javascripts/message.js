@@ -1,16 +1,17 @@
 $(function() {
   var main_message = $(".main__message");
   function buildHTML(message) {
-    var image_body = message.image? `<img src="${ message.image }">` : "";
+    var image = message.image? `<div class="main__message__content"><img src="${ message.image }"></div>` : "";
+    var body = message.body? `<div class="main__message__content">${ message.body }</div>` : "";
 
-    var html = `<div class="main__message__chat-contents" data-message-id: "#{message.id}"}>
+    var html = `<div class="main__message__chat-contents" data-message-id="${ message.id }"}>
                   <div class="main__message__send-name">${ message.user_name }</div>
                   <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content">${ message.body }</div>
-                  <div class="main__message__content">${ image_body }</div>
+                  ${ body }
+                  ${ image }
                 </div>`
     main_message.append(html);
-  }
+   }
 
   $("#new_message").on('submit', function(e) {
     e.preventDefault();
@@ -42,7 +43,6 @@ $(function() {
   });
 
   setInterval(function() {
-
     $.ajax({
       type: 'GET',
       url: location.href,
@@ -50,10 +50,11 @@ $(function() {
     })
 
   .done(function(messages) {
-    var id = $('.main__message__send:last').data('message-id');
+    var id = $('.main__message__chat-contents:last').data('messageId');
     var insertHTML = '';
     messages.forEach(function(message) {
       if (message.id > id ) {
+        console.log(id)
         insertHTML += buildHTML(message);
       }
     });
