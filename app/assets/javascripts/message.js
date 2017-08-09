@@ -72,5 +72,8 @@ $(function() {
     $('.main__message').animate({
           'scrollTop': $('.main__message')[0].scrollHeight}, 'fast');
   })
+  .fail(function(data) {
+   alert('自動更新に失敗しました');
+  });
   },5000);
 });
