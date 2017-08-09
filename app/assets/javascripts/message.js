@@ -1,23 +1,13 @@
 $(function() {
   var main_message = $(".main__message");
   function buildHTML(message) {
-
-    //画像とテキストが両方ともある場合
-    if (message.image && message.body) {
-      var image_body = `<div class="main__message__content">${ message.body }</div>
-                        <div class="main__message__content"><img src="${ message.image }"></div>`
-    //テキストのみの場合
-    } else if (message.body){
-      var image_body = `<div class="main__message__content">${ message.body }</div>`
-    //画像のみの場合
-    } else {
-      var image_body  = `<div class="main__message__content"><img src="${ message.image }"></div>`
-    };
+    var image_body = message.image? `<img src="${ message.image }">` : "";
 
     var html = `<div class="main__message__chat-contents" data-message-id: "#{message.id}"}>
                   <div class="main__message__send-name">${ message.user_name }</div>
                   <div class="main__message__send-time">${ message.time }</div>
-                  ${ image_body }
+                  <div class="main__message__content">${ message.body }</div>
+                  <div class="main__message__content">${ image_body }</div>
                 </div>`
     main_message.append(html);
   }
@@ -60,7 +50,7 @@ $(function() {
     })
 
   .done(function(messages) {
-    var id = $('.main__message__chat-contents:last').data('message-id');
+    var id = $('.main__message__send:last').data('message-id');
     var insertHTML = '';
     messages.forEach(function(message) {
       if (message.id > id ) {
