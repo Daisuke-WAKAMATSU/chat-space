@@ -1,19 +1,25 @@
 $(function() {
   var main_message = $(".main__message");
-  function appendMessage(message) {
+  function buildHTML(message) {
     if (message.image && message.body) {
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
-                  <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content">${ message.body }</div>
-                  <div class="main__message__content"><img src="${ message.image }"</div>`
+      var html = `<div class="main__message__chat-contents" data-message-id: "#{message.id}"}>
+                    <div class="main__message__send-name">${ message.user_name }</div>
+                    <div class="main__message__send-time">${ message.time }</div>
+                    <div class="main__message__content">${ message.body }</div>
+                    <div class="main__message__content"><img src="${ message.image }"</div>
+                  </div>`
     } else if (message.body){
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
-                  <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content">${ message.body }</div>`
+      var html = `<div class="main__message__chat-contents" data-message-id: "#{message.id}"}>
+                    <div class="main__message__send-name">${ message.user_name }</div>
+                    <div class="main__message__send-time">${ message.time }</div>
+                    <div class="main__message__content">${ message.body }</div>
+                  </div>`
     } else {
-      var html = `<div class="main__message__send-name">${ message.user_name }</div>
-                  <div class="main__message__send-time">${ message.time }</div>
-                  <div class="main__message__content"><img src="${ message.image }"</div>`
+      var html = `<div class="main__message__chat-contents" data-message-id: "#{message.id}"}>
+                    <div class="main__message__send-name">${ message.user_name }</div>
+                    <div class="main__message__send-time">${ message.time }</div>
+                    <div class="main__message__content"><img src="${ message.image }"</div>
+                  </div>`
     };
     main_message.append(html);
   }
@@ -32,7 +38,7 @@ $(function() {
       contentType: false,
     })
     .done(function(message) {
-      appendMessage(message)
+      buildHTML(message)
       $("#message_body").val('');
       $(".main__send__form-image").val('');
       $('.main__message').animate({
@@ -46,4 +52,27 @@ $(function() {
       alert("メッセージ送信が失敗しました")
     })
   });
+
+  setInterval(function() {
+
+    $.ajax({
+      url: location.href,
+      dataType: 'json'
+    })
+
+  .done(function(messages) {
+    var id = $('.main__message__chat-contents:last').data('message-id');
+    var insertHTML = '';
+    messages.forEach(function(message) {
+      if (message.id > id ) {
+        insertHTML += buildHTML(message);
+      }
+    });
+    $('.main__message').animate({
+          'scrollTop': $('.main__message')[0].scrollHeight}, 'fast');
+  })
+  .fail(function(data) {
+   console.log('自動更新に失敗しました');
+  });
+  },5000);
 });
